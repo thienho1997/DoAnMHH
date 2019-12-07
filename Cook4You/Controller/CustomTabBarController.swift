@@ -32,8 +32,10 @@ class CustomTabBarController: UITabBarController {
         shoppingListNaviController.title = "S hoppingList"
         shoppingListNaviController.tabBarItem.image = #imageLiteral(resourceName: "to-do")
         
-        let profileController = ProfileController()
-        let profileNaviController = UINavigationController(rootViewController: profileController)
+        //let profileController = ProfileController()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let profileNaviController =  UINavigationController(rootViewController: ProfileController(collectionViewLayout: layout))
         profileNaviController.title = "Profile"
         profileNaviController.tabBarItem.image = #imageLiteral(resourceName: "avatar")
         

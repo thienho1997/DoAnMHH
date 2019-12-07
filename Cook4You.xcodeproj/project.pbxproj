@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4AD3A8D239B38D200896DEF /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AD3A8C239B38D200896DEF /* ProfileController.swift */; };
+		F4AD3A8F239B3A4D00896DEF /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AD3A8E239B3A4D00896DEF /* CollectionViewCell.swift */; };
+		F4AD3A91239B3A5200896DEF /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AD3A90239B3A5200896DEF /* MenuBar.swift */; };
+		F4AD3A95239B4F1100896DEF /* ProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AD3A94239B4F1100896DEF /* ProfileDetail.swift */; };
 		F4F80BE52386C0A60023148D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F80BE42386C0A60023148D /* AppDelegate.swift */; };
 		F4F80BE72386C0A60023148D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F80BE62386C0A60023148D /* ViewController.swift */; };
 		F4F80BEA2386C0A60023148D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F80BE82386C0A60023148D /* Main.storyboard */; };
@@ -16,11 +20,14 @@
 		F4F80BFB2386C2AD0023148D /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F80BFA2386C2AD0023148D /* HomeController.swift */; };
 		F4F80BFD2386C3C60023148D /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F80BFC2386C3C60023148D /* SearchController.swift */; };
 		F4F80BFF2386C8230023148D /* CreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F80BFE2386C8230023148D /* CreateController.swift */; };
-		F4F80C012386C8430023148D /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F80C002386C8430023148D /* ProfileController.swift */; };
 		F4F80C032386C8540023148D /* ShoppingListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F80C022386C8540023148D /* ShoppingListController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F4AD3A8C239B38D200896DEF /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		F4AD3A8E239B3A4D00896DEF /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		F4AD3A90239B3A5200896DEF /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		F4AD3A94239B4F1100896DEF /* ProfileDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetail.swift; sourceTree = "<group>"; };
 		F4F80BE12386C0A60023148D /* Cook4You.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cook4You.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F80BE42386C0A60023148D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4F80BE62386C0A60023148D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,7 +39,6 @@
 		F4F80BFA2386C2AD0023148D /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		F4F80BFC2386C3C60023148D /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		F4F80BFE2386C8230023148D /* CreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateController.swift; sourceTree = "<group>"; };
-		F4F80C002386C8430023148D /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		F4F80C022386C8540023148D /* ShoppingListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,8 +91,8 @@
 				F4F80BF82386C15F0023148D /* CustomTabBarController.swift */,
 				F4F80BFA2386C2AD0023148D /* HomeController.swift */,
 				F4F80BFC2386C3C60023148D /* SearchController.swift */,
+				F4AD3A8C239B38D200896DEF /* ProfileController.swift */,
 				F4F80BFE2386C8230023148D /* CreateController.swift */,
-				F4F80C002386C8430023148D /* ProfileController.swift */,
 				F4F80C022386C8540023148D /* ShoppingListController.swift */,
 			);
 			path = Controller;
@@ -95,6 +101,9 @@
 		F4F80C042386C85B0023148D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F4AD3A8E239B3A4D00896DEF /* CollectionViewCell.swift */,
+				F4AD3A90239B3A5200896DEF /* MenuBar.swift */,
+				F4AD3A94239B4F1100896DEF /* ProfileDetail.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -177,13 +186,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4F80C012386C8430023148D /* ProfileController.swift in Sources */,
 				F4F80BE72386C0A60023148D /* ViewController.swift in Sources */,
 				F4F80BFF2386C8230023148D /* CreateController.swift in Sources */,
+				F4AD3A8F239B3A4D00896DEF /* CollectionViewCell.swift in Sources */,
 				F4F80BFD2386C3C60023148D /* SearchController.swift in Sources */,
+				F4AD3A91239B3A5200896DEF /* MenuBar.swift in Sources */,
 				F4F80BFB2386C2AD0023148D /* HomeController.swift in Sources */,
+				F4AD3A8D239B38D200896DEF /* ProfileController.swift in Sources */,
 				F4F80BF92386C15F0023148D /* CustomTabBarController.swift in Sources */,
 				F4F80BE52386C0A60023148D /* AppDelegate.swift in Sources */,
+				F4AD3A95239B4F1100896DEF /* ProfileDetail.swift in Sources */,
 				F4F80C032386C8540023148D /* ShoppingListController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
