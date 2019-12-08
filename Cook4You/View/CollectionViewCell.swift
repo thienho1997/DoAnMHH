@@ -22,6 +22,7 @@ class BaseCell: UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
 }
+
 class CollectionViewCell: BaseCell {
   
     let thumbImageView: UIImageView = {
