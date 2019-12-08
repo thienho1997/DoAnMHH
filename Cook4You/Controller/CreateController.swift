@@ -9,19 +9,18 @@
 import UIKit
 
 class CreateController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        handlePresent()
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        let longTitleLabel = UILabel()
-        longTitleLabel.text = "Search"
-        longTitleLabel.font = UIFont.systemFont(ofSize: 22)
-        longTitleLabel.sizeToFit()
-        let leftItem = UIBarButtonItem(customView: longTitleLabel)
-        self.navigationItem.leftBarButtonItem = leftItem
         // Do any additional setup after loading the view.
     }
-    
+    @objc func handlePresent(){
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let createRecipeController =  UINavigationController(rootViewController: CreateRecipe(collectionViewLayout: layout))
+        self.present(createRecipeController, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

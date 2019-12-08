@@ -22,8 +22,7 @@ class CustomTabBarController: UITabBarController {
         searchNaviController.title = "Search"
         searchNaviController.tabBarItem.image = #imageLiteral(resourceName: "magnifying-glass (1)")
         
-        let createController = CreateController()
-        let createNaviController = UINavigationController(rootViewController:  createController)
+        let createNaviController = CreateController()
          createNaviController.title = "Create"
          createNaviController.tabBarItem.image = #imageLiteral(resourceName: "plus (1)")
         

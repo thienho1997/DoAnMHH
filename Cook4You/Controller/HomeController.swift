@@ -12,7 +12,7 @@ class HomeController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         let longTitleLabel = UILabel()
         longTitleLabel.text = "Home"
         longTitleLabel.font = UIFont.systemFont(ofSize: 22)
