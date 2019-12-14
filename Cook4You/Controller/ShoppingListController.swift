@@ -20,6 +20,7 @@ class ShoppingListController: UIViewController {
         let leftItem = UIBarButtonItem(customView: longTitleLabel)
         self.navigationItem.leftBarButtonItem = leftItem
         // Do any additional setup after loading the view.
+        indexTabBar = 3
     }
     
 

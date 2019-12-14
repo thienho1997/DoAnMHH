@@ -10,9 +10,12 @@ import UIKit
 
 
 class CreateRecipe: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-     let colorsForTestCell:[UIColor] = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)]
+    var cell1: CreateRecipe2?
+    let statusBarHeight = UIApplication.shared.statusBarFrame.height
+    var customTabBarController1: CustomTabBarController?
+     let colorsForTestCell:[UIColor] = [#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), #colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),#colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 1),#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1),#colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 1)]
     let viewForProcessBar: UIView = {
-        let view = UIView();
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         return view
@@ -55,9 +58,11 @@ class CreateRecipe: UICollectionViewController, UICollectionViewDelegateFlowLayo
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        
         self.collectionView.backgroundColor = UIColor.white
         self.collectionView.isPagingEnabled = true
-        self.collectionView.register(RecipeInput1.self, forCellWithReuseIdentifier: "CellId")
+    //    self.collectionView.register(RecipeInput1.self, forCellWithReuseIdentifier: "CellId")
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -67,12 +72,73 @@ class CreateRecipe: UICollectionViewController, UICollectionViewDelegateFlowLayo
         titleLabel.text = "Create Recipe"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 21)
         self.navigationItem.titleView = titleLabel
-        self.navigationController?.isToolbarHidden = false
-        self.navigationController?.toolbar.isTranslucent = false
+       // self.navigationController?.isToolbarHidden = false
+
+
+//        self.navigationController?.toolbar.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+//         self.navigationController?.toolbar.bottomAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
+//         self.navigationController?.toolbar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+//        self.navigationController?.toolbar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        //self.navigationController?.toolbar.isTranslucent = false
         self.collectionView.showsHorizontalScrollIndicator = false
         self.collectionView.isScrollEnabled = false
         setUpProcessBar()
         setUpToolbar()
+        setUpNavBar()
+        self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.collectionView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        // register Collection View Cell
+        self.collectionView.register(CreateRecipe2.self, forCellWithReuseIdentifier: "CreateRecipe2")
+        print(view.frame.height)
+        print(view.frame.maxY)
+        print(collectionView.frame.height)
+        print(UIScreen.main.bounds.height)
+         let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        print(statusBarHeight)
+        let topBarHeight =
+            (self.navigationController?.navigationBar.frame.height ?? 0.0)
+        print(topBarHeight)
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(CreateRecipe.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CreateRecipe.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        self.view.addGestureRecognizer(tap)
+    }
+    @objc func hideKeyboard() {
+        self.view.endEditing(true)
+    }
+    @objc func keyboardWillShow( _ notification: Notification){
+        print("123")
+        if let keyboardFrame = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            
+            if let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as? Double{
+                toolBarTopConstraint?.constant = -keyboardFrame.height - 50 + 34
+                cell1!.scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: (cell1?.frame.height)! - keyboardFrame.height + 34)
+                UIView.animate(withDuration: keyboardDuration) {
+                    
+                    self.view.layoutIfNeeded()
+                }
+                UIView.animate(withDuration: keyboardDuration, delay: 0, options: .beginFromCurrentState, animations: {
+                    
+                }, completion: nil)
+            }
+            
+        }
+        
+    }
+    @objc func keyboardWillHide(_ notification: Notification){
+        let heigtBotton = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
+        
+        if let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as? Double{
+            toolBarTopConstraint?.constant = -50
+            cell1!.scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: (cell1?.frame.height)!)
+            UIView.animate(withDuration: keyboardDuration) {
+                self.view.layoutIfNeeded()
+            }
+        }
+        
     }
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -81,15 +147,27 @@ class CreateRecipe: UICollectionViewController, UICollectionViewDelegateFlowLayo
         return 6
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellId", for: indexPath)
-        cell.backgroundColor = colorsForTestCell[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CreateRecipe2", for: indexPath) as! CreateRecipe2
+        cell.createRecipeController = self
+        cell1 = cell
+        //cell.recipeNameTextField.inputAccessoryView = toolBarH
+//        cell.introLabel.text = "\(indexPath.item)"
+//        if(indexPath.item == 0){
+//            cell.introLabel.text = "We're excited to see your recipe! Let's start with the basics..."
+//        }
+//
+        
+        print(indexPath.row)
+        //cell.backgroundColor = colorsForTestCell[indexPath.row]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: view.frame.width, height: view.frame.height)
+        let height = view.frame.height - 90
+        
+        let size = CGSize(width: view.frame.width, height: height)
         return size
     }
     var indexRow = 0;
@@ -105,9 +183,59 @@ class CreateRecipe: UICollectionViewController, UICollectionViewDelegateFlowLayo
         let index = IndexPath(row: indexRow, section: 0)
         self.collectionView.scrollToItem(at: index, at: UICollectionView.ScrollPosition.left, animated: true)
     }
+    @objc func closeCreateRecipe(){
+        customTabBarController1?.selectedIndex = indexTabBar
+        self.dismiss(animated: true, completion: nil)
+    }
+    func setUpNavBar(){
+        let spacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        spacing.width = 20
+        //        let searchButton = UIBarButtonItem(customView: button)
+        
+        let button1  = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        button1.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        button1.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        button1.setTitle("CLOSE", for: .normal)
+        button1.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button1.setTitleColor(#colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1), for: .normal)
+       // button1.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
+        let closeButton = UIBarButtonItem(customView: button1)
+        closeButton.customView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeCreateRecipe)))
+        navigationItem.rightBarButtonItems = [closeButton,spacing]
+    }
+    
+    
+//    lazy var toolBar: UIToolbar = {
+//        let topBarHeight = UIApplication.shared.statusBarFrame.size.height +
+//            (self.navigationController?.navigationBar.frame.height ?? 0.0)
+//        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+//        let yView = self.view.frame.maxY
+//        let toolBar1 = UIToolbar(frame: CGRect(x: 0, y: yView - topBarHeight - statusBarHeight - 50 + 6  , width: self.view.frame.width, height: 50))
+//        toolBar1.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+//        return toolBar1
+//    }()
+    let toolBarH: UIToolbar = {
+        let toolBar1 = UIToolbar()
+        toolBar1.translatesAutoresizingMaskIntoConstraints = false
+        toolBar1.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        return toolBar1
+    }()
+    var toolBarTopConstraint: NSLayoutConstraint?
     func setUpToolbar(){
+        self.view.addSubview(toolBarH)
+        
+        let homeBarHeight =  UIApplication.shared.keyWindow?.safeAreaInsets.bottom
+        toolBarH.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        toolBarH.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        //let height = -homeBarHeight - 50
+      //  print(self.navigationController?.toolbar.frame.height)
+       toolBarTopConstraint = toolBarH.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -50)
+        toolBarTopConstraint?.isActive = true
+        toolBarH.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        
         let buttonNext = UIView(frame: CGRect(x: 0, y: 0, width: 170, height: 40))
-        buttonNext.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        buttonNext.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
         buttonNext.layer.cornerRadius = 5
         buttonNext.clipsToBounds = true
         let labelNext = UILabel(frame: CGRect(x: buttonNext.frame.origin.x, y: buttonNext.frame.origin.y, width: buttonNext.frame.width * 0.48, height: buttonNext.frame.height))
@@ -132,15 +260,15 @@ class CreateRecipe: UICollectionViewController, UICollectionViewDelegateFlowLayo
         buttonBack.layer.cornerRadius = 5
         buttonBack.clipsToBounds = true
         buttonBack.layer.borderWidth = 1
-        buttonBack.layer.borderColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        buttonBack.layer.borderColor = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
         let imageViewBack = UIImageView(frame: CGRect(x: buttonNext.frame.origin.x + buttonBack.frame.width * 0.3 , y: buttonBack.frame.origin.y +  buttonBack.frame.height * 0.24 , width: buttonBack.frame.width * 0.17, height: buttonBack.frame.height * 0.52))
         imageViewBack.image = #imageLiteral(resourceName: "left-arrow (1)").withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-        imageViewBack.tintColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        imageViewBack.tintColor = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
         let labelBack = UILabel(frame: CGRect(x: buttonBack.frame.origin.x + buttonBack.frame.width * 0.52, y: buttonBack.frame.origin.y, width: buttonBack.frame.width * 0.48, height: buttonBack.frame.height))
         labelBack.text = "Back"
         labelBack.textAlignment = .left
         // labelNext.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
-        labelBack.textColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        labelBack.textColor = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
         labelBack.font = UIFont.boldSystemFont(ofSize: 18)
         buttonBack.addSubview(labelBack)
         buttonBack.addSubview(imageViewBack)
@@ -160,13 +288,16 @@ class CreateRecipe: UICollectionViewController, UICollectionViewDelegateFlowLayo
         items.append(fixedSpace)
         items.append(barButtonNext)
         items.append(flexibleSpace)
-        self.toolbarItems = items
+        toolBarH.items = items
+        //self.toolbarItems = items
+        
     }
     var rightAnchorProcessBarAnimation: NSLayoutConstraint?
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
       rightAnchorProcessBarAnimation?.constant = scrollView.contentOffset.x / 6 + view.frame.maxX  / 6
     }
     func setUpProcessBar(){
+        
         self.view.addSubview(viewForProcessBar)
         self.view.addSubview(viewForProcessBarAnimation)
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0(6)]", options:[] , metrics: nil, views: ["v0":viewForProcessBarAnimation]))
@@ -176,8 +307,7 @@ class CreateRecipe: UICollectionViewController, UICollectionViewDelegateFlowLayo
         viewForProcessBarAnimation.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options:[] , metrics: nil, views: ["v0":viewForProcessBar]))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0(6)]", options:[] , metrics: nil, views: ["v0":viewForProcessBar]))
-//        let topBarHeight = UIApplication.shared.statusBarFrame.size.height +
-//            (self.navigationController?.navigationBar.frame.height ?? 0.0)
+        
        
         self.view.addSubview(lineSeparated1)
         lineSeparated1.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: w).isActive = true
@@ -206,12 +336,16 @@ class CreateRecipe: UICollectionViewController, UICollectionViewDelegateFlowLayo
         
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let height = 6
-        self.collectionView.contentInset = UIEdgeInsets(top: 6, left: 0, bottom: 0, right: 0)
+        self.collectionView.contentInset = UIEdgeInsets(top:  44 + 6 , left: 0, bottom: 44+50, right: 0)
         self.collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 6, left: 0, bottom: 0, right: 0)
-        
+       
+//        print(topBarHeight)
+//        print(self.collectionView.frame.height)
+//        print(self.navigationController?.toolbar.frame.height)
+//        print(UIApplication.shared.keyWindow?.safeAreaInsets.bottom)
     }
 }
-class RecipeInput1: BaseCell{
-    override func setupViews() {
-    }
-}
+//class RecipeInput1: BaseCell{
+//    override func setupViews() {
+//    }
+//}

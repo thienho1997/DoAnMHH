@@ -9,16 +9,24 @@
 import UIKit
 
 class CreateController: UIViewController {
+     var customTabBarController: CustomTabBarController?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        handlePresent()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        handlePresent()
+        
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         // Do any additional setup after loading the view.
     }
     @objc func handlePresent(){
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let createRecipeController =  UINavigationController(rootViewController: CreateRecipe(collectionViewLayout: layout))
+        let createRecipeNonNav = CreateRecipe(collectionViewLayout: layout)
+        let createRecipeController =  UINavigationController(rootViewController: createRecipeNonNav )
+       // createRecipeController.toolbar.translatesAutoresizingMaskIntoConstraints = false
+        createRecipeNonNav.customTabBarController1 = customTabBarController
         self.present(createRecipeController, animated: true, completion: nil)
     }
 

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+var indexTabBar = 0
 class CustomTabBarController: UITabBarController {
 
     override func viewDidLoad() {
@@ -23,6 +23,7 @@ class CustomTabBarController: UITabBarController {
         searchNaviController.tabBarItem.image = #imageLiteral(resourceName: "magnifying-glass (1)")
         
         let createNaviController = CreateController()
+        createNaviController.customTabBarController = self
          createNaviController.title = "Create"
          createNaviController.tabBarItem.image = #imageLiteral(resourceName: "plus (1)")
         
@@ -35,12 +36,14 @@ class CustomTabBarController: UITabBarController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let profileNaviController =  UINavigationController(rootViewController: ProfileController(collectionViewLayout: layout))
+        
         profileNaviController.title = "Profile"
         profileNaviController.tabBarItem.image = #imageLiteral(resourceName: "avatar")
         
         self.viewControllers = [homeNaviController,searchNaviController, createNaviController,shoppingListNaviController,profileNaviController]
         self.tabBar.tintColor = #colorLiteral(red: 0.1005001575, green: 0.2521012932, blue: 0.564978585, alpha: 1)
         self.tabBar.isTranslucent = false
+        self.selectedIndex = 0
         
     }
     

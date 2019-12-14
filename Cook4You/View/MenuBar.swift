@@ -53,7 +53,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLay
         let horizontalBar = UIView()
         horizontalBar.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(horizontalBar)
-        horizontalBar.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        horizontalBar.backgroundColor = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
     
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]", options: [], metrics: nil, views: ["v0" : horizontalBar]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v0(2)]|", options: [], metrics: nil, views: ["v0" : horizontalBar]))
@@ -95,7 +95,7 @@ class CellMenuBar: BaseCell{
     }()
     override var isSelected: Bool{
         didSet{
-            titleLabel.textColor = isSelected ? #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1): #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            titleLabel.textColor = isSelected ? #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1): #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             }
     }
     override func setupViews() {
